@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Typing Speed Calculator</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            padding-top: 50px;
-            background: url('image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-        }
-        .container {
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            border-radius: 10px;
-        }
-        .wpm-display {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .form-control {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .form-control::placeholder {
-            color: #ccc;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
+      body {
+        padding-top: 50px;
+        background: url("image.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+      }
+      .container {
+        max-width: 600px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+      }
+      .wpm-display {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+      .form-control {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .form-control::placeholder {
+        color: #ccc;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-youtube {
+        background-color: #ff0000; /* YouTube red color */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .btn-youtube:hover {
+        background-color: #cc0000;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h2 class="text-center">Typing Speed Calculator</h2>
-        <div class="form-group">
-            <textarea id="typingArea" class="form-control" rows="5" placeholder="Start typing here..." onkeyup="calculateWPM()"></textarea>
-        </div>
-        <button id="resetButton" class="btn btn-primary" onclick="resetCalculator()">Reset</button>
-        <p id="wpm" class="wpm-display text-center">WPM: 0</p>
+      <h2 class="text-center">Typing Speed Calculator</h2>
+      <div class="form-group">
+        <textarea
+          id="typingArea"
+          class="form-control"
+          rows="5"
+          placeholder="Start typing here..."
+          onkeyup="calculateWPM()"
+        ></textarea>
+      </div>
+      <button
+        id="resetButton"
+        class="btn btn-primary"
+        onclick="resetCalculator()"
+      >
+        Reset
+      </button>
+      <p id="wpm" class="wpm-display text-center">WPM: 0</p>
+
+      <!-- YouTube Subscribe Button -->
+      <a href="https://www.youtube.com/@TDS-sami" target="_blank">
+        <button class="btn-youtube">Subscribe to My YouTube Channel</button>
+      </a>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
@@ -53,38 +89,39 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        let startTime;
-        let isTyping = false;
+      let startTime;
+      let isTyping = false;
 
-        function calculateWPM() {
-            const textarea = document.getElementById('typingArea');
-            const text = textarea.value.trim();
-            const charCount = text.length;
-            const endTime = new Date();
+      function calculateWPM() {
+        const textarea = document.getElementById("typingArea");
+        const text = textarea.value.trim();
+        const charCount = text.length;
+        const endTime = new Date();
 
-            if (charCount === 0) {
-                isTyping = false;
-                document.getElementById('wpm').innerText = 'WPM: 0';
-                return;
-            }
-
-            if (!isTyping) {
-                startTime = endTime;
-                isTyping = true;
-            }
-
-            const timeDiff = (endTime - startTime) / 1000; // in seconds
-            const wpm = (charCount / 5) / (timeDiff / 60);
-
-            document.getElementById('wpm').innerText = `WPM: ${Math.round(wpm)}`;
+        if (charCount === 0) {
+          isTyping = false;
+          document.getElementById("wpm").innerText = "WPM: 0";
+          return;
         }
 
-        function resetCalculator() {
-            document.getElementById('typingArea').value = '';
-            document.getElementById('wpm').innerText = 'WPM: 0';
-            isTyping = false;
+        if (!isTyping) {
+          startTime = endTime;
+          isTyping = true;
         }
+
+        const timeDiff = (endTime - startTime) / 1000; // in seconds
+        const wpm = charCount / 5 / (timeDiff / 60);
+
+        document.getElementById("wpm").innerText = `WPM: ${Math.round(wpm)}`;
+      }
+
+      function resetCalculator() {
+        document.getElementById("typingArea").value = "";
+        document.getElementById("wpm").innerText = "WPM: 0";
+        isTyping = false;
+      }
     </script>
-</body>
+  </body>
 </html>
+
 
