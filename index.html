@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Typing Speed Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding-top: 50px;
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 600px;
+        background: #fff;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      .wpm-display {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center">Typing Speed Calculator</h2>
+      <div class="form-group">
+        <textarea
+          id="typingArea"
+          class="form-control"
+          rows="5"
+          placeholder="Start typing here..."
+          onkeyup="calculateWPM()"
+        ></textarea>
+      </div>
+      <button
+        id="resetButton"
+        class="btn btn-primary"
+        onclick="resetCalculator()"
+      >
+        Reset
+      </button>
+      <p id="wpm" class="wpm-display text-center">WPM: 0</p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      let startTime;
+      let isTyping = false;
+
+      function calculateWPM() {
+        const textarea = document.getElementById("typingArea");
+        const text = textarea.value.trim();
+        const charCount = text.length;
+        const endTime = new Date();
+
+        if (charCount === 0) {
+          isTyping = false;
+          document.getElementById("wpm").innerText = "WPM: 0";
+          return;
+        }
+
+        if (!isTyping) {
+          startTime = endTime;
+          isTyping = true;
+        }
+
+        const timeDiff = (endTime - startTime) / 1000; // in seconds
+        const wpm = charCount / 5 / (timeDiff / 60);
+
+        document.getElementById("wpm").innerText = `WPM: ${Math.round(wpm)}`;
+      }
+
+      function resetCalculator() {
+        document.getElementById("typingArea").value = "";
+        document.getElementById("wpm").innerText = "WPM: 0";
+        isTyping = false;
+      }
+    </script>
+  </body>
+</html>
