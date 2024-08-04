@@ -1,211 +1,157 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Typing Speed Calculator</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        padding-top: 50px;
-        background: url("image.jpg") no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
-      }
-      .container {
-        max-width: 600px;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 30px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        border-radius: 10px;
-      }
-      .wpm-display {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-      .form-control {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      .form-control::placeholder {
-        color: #ccc;
-      }
-      .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-      }
-      .btn-youtube {
-        background-color: #ff0000; /* YouTube red color */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: 20px;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-      .btn-youtube:hover {
-        background-color: #cc0000;
-      }
-      .wpm-description {
-        font-size: 14px;
-        margin-top: 10px;
-        color: #ccc;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2 class="text-center">Typing Speed Calculator</h2>
-      <div class="form-group">
-        <textarea
-          id="typingArea"
-          class="form-control"
-          rows="5"
-          placeholder="Start typing here..."
-          onkeyup="calculateWPM()"
-        ></textarea>
-      </div>
-      <button
-        id="resetButton"
-        class="btn btn-primary"
-        onclick="resetCalculator()"
-      >
-        Reset
-      </button>
-      <p id="wpm" class="wpm-display text-center">WPM: 0</p>
-      <p class="wpm-description">
-        <strong>WPM (Words Per Minute):</strong> This metric measures how many
-        words you can type in one minute. To calculate your WPM, the tool counts
-        the total number of words you type and divides it by the time you’ve
-        been typing, then multiplies by 60 to get the words per minute rate.
-      </p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Calculator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      background: url("image.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    .wpm-display {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .form-control::placeholder {
+      color: #ccc;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-youtube {
+      background-color: #ff0000; /* YouTube red color */
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn-youtube:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+    }
+    .wpm-description {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #ddd;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      border-radius: 10px;
+    }
+    .card-title {
+      color: #ff9900;
+    }
+    .card-text {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Typing Speed Calculator</h2>
+    <div class="form-group">
+      <textarea id="typingArea" class="form-control" rows="5" placeholder="Start typing here..." onkeyup="calculateWPM()"></textarea>
+    </div>
+    <button id="resetButton" class="btn btn-primary" onclick="resetCalculator()">Reset</button>
+    <p id="wpm" class="wpm-display text-center">WPM: 0</p>
+    <p class="wpm-description">
+      <strong>WPM (Words Per Minute):</strong> This metric measures how many words you can type in one minute. To calculate your WPM, the tool counts the total number of words you type and divides it by the time you’ve been typing, then multiplies by 60 to get the words per minute rate.
+    </p>
 
-      <!-- YouTube Subscribe Button -->
-
-      
+    <!-- YouTube Subscribe Button -->
     <hr />
     <div class="text-center mt-4">
-      <!-- Request Text and YouTube Subscribe Button -->
-      <p class="mb-3" style="font-size: 1.25rem; color: #333">
-        Enjoying the content? <strong>Subscribe to my channel</strong> and stay
-        updated with helpfull videos/Apps!
+      <p class="mb-3" style="font-size: 1.25rem;">
+        Enjoying the content? <strong>Subscribe to my channel</strong> and stay updated with helpful videos and apps!
       </p>
-      <a
-        href="https://www.youtube.com/@TDS-sami?sub_confirmation=1"
-        target="_blank"
-        class="btn btn-danger btn-lg d-inline-flex align-items-center"
-        style="
-          font-size: 1.25rem;
-          padding: 12px 24px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          transition: background-color 0.3s, box-shadow 0.3s;
-        "
-        role="button"
-        aria-label="Subscribe to YouTube Channel"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class="mr-2"
-        >
-          <path
-            d="M22.54 6.42c-.22-1.4-1.09-2.51-2.48-2.82C18.43 3.43 12 3.43 12 3.43s-6.43 0-8.06.17C2.55 3.91 1.68 5.02 1.46 6.42.67 8.9.67 12 1.46 14.58c.22 1.4 1.09 2.51 2.48 2.82C5.57 17.57 12 17.57 12 17.57s6.43 0 8.06-.17c1.39-.31 2.26-1.42 2.48-2.82.79-2.58.79-5.68 0-8.26zM10 15.6v-7.2l5.4 3.6-5.4 3.6z"
-            fill="#fff"
-          />
+      <a href="https://www.youtube.com/@TDS-sami?sub_confirmation=1" target="_blank" class="btn btn-youtube d-inline-flex align-items-center" role="button" aria-label="Subscribe to YouTube Channel">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
+          <path d="M22.54 6.42c-.22-1.4-1.09-2.51-2.48-2.82C18.43 3.43 12 3.43 12 3.43s-6.43 0-8.06.17C2.55 3.91 1.68 5.02 1.46 6.42.67 8.9.67 12 1.46 14.58c.22 1.4 1.09 2.51 2.48 2.82C5.57 17.57 12 17.57 12 17.57s6.43 0 8.06-.17c1.39-.31 2.26-1.42 2.48-2.82.79-2.58.79-5.68 0-8.26zM10 15.6v-7.2l5.4 3.6-5.4 3.6z" fill="#fff" />
         </svg>
         Subscribe
       </a>
     </div>
 
-    <div class="card text-center mt-3">
+    <div class="card text-center mt-4">
       <div class="card-body">
         <h5 class="card-title">Support Me</h5>
-        <p class="card-text">
-          Your donation helps me to keep providing valuable content.
-        </p>
+        <p class="card-text">Your donation helps me to keep providing valuable content.</p>
         <!-- PayPal Donate Button -->
-        <form
-          action="https://www.paypal.com/donate"
-          method="post"
-          target="_top"
-        >
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
           <input type="hidden" name="hosted_button_id" value="QNHE9KD5JSVRW" />
-          <input
-            type="image"
-            src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
-            border="0"
-            name="submit"
-            title="PayPal - The safer, easier way to pay online!"
-            alt="Donate with PayPal button"
-          />
-          <img
-            alt=""
-            border="0"
-            src="https://www.paypal.com/en_US/i/scr/pixel.gif"
-            width="1"
-            height="1"
-          />
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+          <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
         </form>
       </div>
     </div>
+  </div>
 
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+  <script>
+    let startTime;
+    let isTyping = false;
 
+    function calculateWPM() {
+      const textarea = document.getElementById("typingArea");
+      const text = textarea.value.trim();
+      const charCount = text.length;
+      const endTime = new Date();
 
-
-      
-    </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-      let startTime;
-      let isTyping = false;
-
-      function calculateWPM() {
-        const textarea = document.getElementById("typingArea");
-        const text = textarea.value.trim();
-        const charCount = text.length;
-        const endTime = new Date();
-
-        if (charCount === 0) {
-          isTyping = false;
-          document.getElementById("wpm").innerText = "WPM: 0";
-          return;
-        }
-
-        if (!isTyping) {
-          startTime = endTime;
-          isTyping = true;
-        }
-
-        const timeDiff = (endTime - startTime) / 1000; // in seconds
-        const wpm = charCount / 5 / (timeDiff / 60);
-
-        document.getElementById("wpm").innerText = `WPM: ${Math.round(wpm)}`;
-      }
-
-      function resetCalculator() {
-        document.getElementById("typingArea").value = "";
-        document.getElementById("wpm").innerText = "WPM: 0";
+      if (charCount === 0) {
         isTyping = false;
+        document.getElementById("wpm").innerText = "WPM: 0";
+        return;
       }
-    </script>
-  </body>
+
+      if (!isTyping) {
+        startTime = endTime;
+        isTyping = true;
+      }
+
+      const timeDiff = (endTime - startTime) / 1000; // in seconds
+      const wpm = charCount / 5 / (timeDiff / 60);
+
+      document.getElementById("wpm").innerText = `WPM: ${Math.round(wpm)}`;
+    }
+
+    function resetCalculator() {
+      document.getElementById("typingArea").value = "";
+      document.getElementById("wpm").innerText = "WPM: 0";
+      isTyping = false;
+    }
+  </script>
+</body>
 </html>
-
-
